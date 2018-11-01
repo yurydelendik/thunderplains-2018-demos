@@ -6,6 +6,7 @@ use dft::{Operation, Plan};
 
 extern crate dft;
 
+// The global data is initialize by the init function.
 struct Globals {
   data: Vec<f64>,
   spectrum: Vec<f64>,
@@ -36,8 +37,9 @@ pub unsafe extern "C" fn get_spectrum() -> *const f64 {
 #[no_mangle]
 pub unsafe extern "C" fn transform() {
     let Globals { ref mut data, ref plan, ref mut spectrum } = GLOBALS.as_mut().expect("init");
+    // Run FFT.
     dft::transform(data, plan);
-
+    // Calculate spectrum.
     let b = 2.0 / data.len() as f64;
     let unpacked = dft::unpack(data);
     for i in 0..unpacked.len() / 2 {

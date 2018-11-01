@@ -2,6 +2,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+// Find the canvas element and create column for our pixels
+// and empty column to see mark next position.
 const ctx = document.getElementById("canvas").getContext("2d");
 const column = ctx.createImageData(1, ctx.canvas.height);
 for (let i = 3; i < column.data.length; i += 4) {
@@ -12,8 +14,10 @@ const clearColumn = ctx.getImageData(0, 0, 1, ctx.canvas.height);
 let current_x = 0;
 
 function getValueColor(val, data, j) {
-  // expected value somewhere from 0.2 to 1e-8
+  // Expected value somewhere from 0.2 to 1e-8.
   const h = -2 * 20 * Math.log10(val);
+  // Assume s = 255, v = 255 in HSV color and
+  // convert it to RGB.
   const c = 255;
   const x = (c * (1 - Math.abs((h / 60) % 2 - 1)) | 0);
   data[j] = h < 60 || h >= 300 ? c : h < 120 || h > 240 ? x : 0;
@@ -22,11 +26,13 @@ function getValueColor(val, data, j) {
 }
 
 export function paintNextColumn(data) {
+  // Get colors for the data elements.
   const len = Math.min(column.height, data.length);
   for (let i = 0, j = 0; i < len; i++) {
     getValueColor(data[i], column.data, j);
     j += 4;
   }
+  // Draw current column, move to next, and erase very next.
   ctx.putImageData(column, current_x, 0);
   ++current_x;
   if (current_x >= ctx.canvas.width) {
