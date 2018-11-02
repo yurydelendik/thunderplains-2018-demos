@@ -1,4 +1,8 @@
-# Simple example
+# Thunderplains 2018 Demos
+
+Some examples from [slides](docs/Using%20WebAssembly%20in%20_all_%20the%20Web.pdf) for the https://2018.thunderplainsconf.com/.
+
+## Simple example
 
 ```
 cat simple.wat
@@ -6,7 +10,7 @@ wat2wasm simple.wat -o simple.wasm
 xxd simple.wasm
 ```
 
-# Golden ration example
+## Golden ration example
 
 ```
 cat gold.wat
@@ -23,7 +27,7 @@ In node (e.g. `node --experimental-repl-await`):
 1.618033988749895
 ```
 
-# Sigmoid example
+## Sigmoid example
 
 ```
 cat sigmoid.wat
@@ -42,7 +46,7 @@ See also [benchmark](sigmoid.html).
 
 The sigmoid without JS import can be found at the "fdlibm/" directory, and run [benchmark](sigmoid.html?fdlibm/sigmoid.wasm).
 
-# Spectrum examples
+## Spectrum examples
 
 Run [original spectrum](spectrum/index.html) application. The FFT JavaScript code is taken from https://github.com/corbanbrook/dsp.js.
 
